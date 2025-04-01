@@ -23,5 +23,6 @@ Repo includes 3 (SVM) + 2 (Linear Regression) real-world datasets with inherent 
 - MeanImputer is implemented based on sklearn: [https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html)
 
 -For Running Experiments for instance for water potability. python3 SVM/Real-World-Minimal-Imputation-Water.py.
+-For Running TabCSDI, run the script for each data, for instance for water potability. bash run_waterpot.sh
 
 
