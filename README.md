@@ -13,24 +13,12 @@ significantly reduce the time and effort required for data imputation
 
 Experiments are ordered first at the level of ML problem (SVM, Regression) and then at the level of dataset. Each dataset has its own file for running the experiments.
 
-## 1. Real-World Dataset-with-Random-Corruption
-
-This section includes three UCI datasets that were utilized in our paper.
-- Data files are available through the links below to the UCI database:
-  1. [Malware](https://doi.org/10.24432/C5HG8D)
-  2. [Gisette](https://doi.org/10.24432/C5HP5B)
-  3. [Tuandromd](https://doi.org/10.24432/C5560H)
- 
-For Running Experiments for instance for TUANDROMD. python3 SVM/Synthetic-Minimal-Imputation-TUADROMD.py 
-
-
-## 2. Real-World-Dataset with Inherent Missing Values
+## 1. Real-World-Dataset with Inherent Missing Values
 
 Repo includes 3 (SVM) + 2 (Linear Regression) real-world datasets with inherent missing values.
 - Every dataset has its specific file for running the code.
 - Additionally datasets can be found in their original source, all are cited in the paper.
 - Active Clean is based on original implementation: [https://activeclean.github.io/](https://activeclean.github.io/)
-- Deep Learning based imputation (MIWAE) is implemented from the following repository: [https://github.com/vanderschaarlab/hyperimpute](https://github.com/vanderschaarlab/hyperimpute)
 - KNNImputer is implemented based on sklearn: [https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html](https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html)
 - MeanImputer is implemented based on sklearn: [https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html)
 
