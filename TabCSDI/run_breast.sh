@@ -10,9 +10,6 @@ python dataset_train_impute_breast.py
 echo "Running exe_testing_breast_real.py..."
 python exe_testing_breast_real.py
 
-echo "Running script3.py..."
-python script3.py
-
 # End time
 end_time=$(date +%s)
 
