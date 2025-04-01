@@ -5,7 +5,7 @@ start_time=$(date +%s)
 
 # Run the three files (replace with your actual files/commands)
 echo "Running dataset_train_impute_breast.py..."
-python script1.py
+python dataset_train_impute_breast.py
 
 echo "Running exe_testing_breast_real.py..."
 python exe_testing_breast_real.py
