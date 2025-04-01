@@ -50,7 +50,7 @@ test_loader = get_dataloader(
 exe_name = "online_ed"
 model = TabCSDI(exe_name, config, args.device).to(args.device)
 
-model.load_state_dict(torch.load("./save/" +"online_ed_2_fold5_20250219_213804"+ "/model.pth"))
+model.load_state_dict(torch.load("./save/" +"/online_ed_2_train_testing_fold" + str(args.nfold) + "_" + current_time + "/model.pth"))
 print("---------------Start testing---------------")
 evaluate_ft(
     exe_name, model, test_loader, nsample=args.nsample, scaler=1, foldername=foldername
