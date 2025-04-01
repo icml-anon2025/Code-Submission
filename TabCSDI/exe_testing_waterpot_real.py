@@ -50,6 +50,6 @@ test_loader = get_dataloader(
 
 model = TabCSDI(config, args.device).to(args.device)
 
-model.load_state_dict(torch.load("./save/" +"waterpot_3_fold5_20250219_195519"+ "/model.pth"))
+model.load_state_dict(torch.load("./save/" +"waterpot_2_train_testing_fold" + str(args.nfold) + "_" + current_time"+ "/model.pth"))
 print("---------------Start testing---------------")
 evaluate(model, test_loader, nsample=args.nsample, scaler=1, foldername=foldername)
