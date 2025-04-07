@@ -41,13 +41,13 @@ class tabular_dataset(Dataset):
         self.eval_length = eval_length
         np.random.seed(seed)
 
-        dataset_path = "data_airquality_2/train_air_quality_original.csv"
+        dataset_path = "./TabCSDI/data_airquality_2/train_air_quality_original.csv"
         print(dataset_path)
         processed_data_path = (
-            f"./data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}.pk"
+            f"./TabCSDI/data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}.pk"
         )
         processed_data_path_norm = (
-            f"./data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
+            f"./TabCSDI/data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
         )
 
         if not os.path.isfile(processed_data_path):
@@ -110,7 +110,7 @@ def get_dataloader(seed=1, nfold=5, batch_size=16, missing_ratio=0.1):
 
     # Here we perform max-min normalization.
     processed_data_path_norm = (
-        f"./data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
+        f"./TabCSDI/data_airquality_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
     )
     if not os.path.isfile(processed_data_path_norm):
         print(
@@ -129,7 +129,7 @@ def get_dataloader(seed=1, nfold=5, batch_size=16, missing_ratio=0.1):
             min_arr[k] = min(temp[obs_ind])
         print(f"--------------Max-value for each column {max_arr}--------------")
         print(f"--------------Min-value for each column {min_arr}--------------")
-        np.save("./data_airquality_2/normalization_params.npy", [max_arr, min_arr])
+        np.save("./TabCSDI/data_airquality_2/normalization_params.npy", [max_arr, min_arr])
         dataset.observed_values = (
             (dataset.observed_values - 0 + 1) / (max_arr - 0 + 1)
         ) * dataset.observed_masks
