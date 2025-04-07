@@ -4,11 +4,12 @@
 start_time=$(date +%s)
 
 # Run the three files (replace with your actual files/commands)
-echo "Running dataset_train_impute_airquality.py..."
-python dataset_train_impute_waterpot.py
 
 echo "Running exe_testing_waterpot_real.py..."
-python exe_testing_airquality.py
+python TabCSDI/exe_testing_airquality.py
+
+echo "Running airquality_ori.py..."
+python TabCSDI/airquality_ori.py
 
 # End time
 end_time=$(date +%s)
