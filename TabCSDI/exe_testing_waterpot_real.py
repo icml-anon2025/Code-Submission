@@ -6,8 +6,8 @@ import yaml
 import os
 
 from src.main_model_table import TabCSDI
-from src.utils_table import evaluate
-from testing_waterpot_real import get_dataloader
+from src.utils_table import train, evaluate
+from dataset_train_impute_waterpot import get_dataloader
 
 parser = argparse.ArgumentParser(description="TabCSDI")
 parser.add_argument("--config", type=str, default="waterpot.yaml")
@@ -24,7 +24,7 @@ print(args)
 
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
-path = "config/" + args.config
+path = "./TabCSDI/config/" + args.config
 with open(path, "r") as f:
     config = yaml.safe_load(f)
 
@@ -35,21 +35,31 @@ print(json.dumps(config, indent=4))
 
 # Create folder
 current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-foldername = "./save/waterpot_2_train_testing_fold" + str(args.nfold) + "_" + current_time + "/"
+foldername = "./TabCSDI/save/waterpot_2_train_testing_fold" + str(args.nfold) + "/"
 print("model folder:", foldername)
 os.makedirs(foldername, exist_ok=True)
 with open(foldername + "config.json", "w") as f:
     json.dump(config, f, indent=4)
 
 # Every loader contains "observed_data", "observed_mask", "gt_mask", "timepoints"
-test_loader = get_dataloader(
+train_loader, valid_loader, test_loader = get_dataloader(
     seed=args.seed,
+    nfold=args.nfold,
     batch_size=config["train"]["batch_size"],
     missing_ratio=config["model"]["test_missing_ratio"],
 )
 
 model = TabCSDI(config, args.device).to(args.device)
 
-model.load_state_dict(torch.load("./save/" +"waterpot_2_train_testing_fold" + str(args.nfold) + "_" + current_time + "/model.pth"))
+if args.modelfolder == "":
+    train(
+        model,
+        config["train"],
+        train_loader,
+        valid_loader=valid_loader,
+        foldername=foldername,
+    )
+else:
+    model.load_state_dict(torch.load("./TabCSDI/save/" + args.modelfolder + "/model.pth"))
 print("---------------Start testing---------------")
 evaluate(model, test_loader, nsample=args.nsample, scaler=1, foldername=foldername)
