@@ -79,10 +79,10 @@ def process_func(path: str, cat_list, missing_ratio=0.1, encode=True):
         new_observed_values = np.nan_to_num(new_observed_values)
         new_observed_values = new_observed_values.astype(np.float)
 
-        with open("./data_online_ed_2/transformed_columns.pk", "wb") as f:
+        with open("./TabCSDI/data_online_ed_2/transformed_columns.pk", "wb") as f:
             pickle.dump([cont_list, num_cate_list], f)
 
-        with open("./data_online_ed_2/encoder.pk", "wb") as f:
+        with open("./TabCSDI/data_online_ed_2/encoder.pk", "wb") as f:
             pickle.dump(encoder, f)
 
     if encode == True:
@@ -98,11 +98,11 @@ class tabular_Dataset(Dataset):
         self.eval_length = eval_length
         np.random.seed(seed)
 
-        dataset_path = "./data_online_ed_2/df_train_online_ed_original.csv"
+        dataset_path = "./TabCSDI/data_online_ed_2/df_train_online_ed_original.csv"
         processed_data_path = (
-            f"./data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}.pk"
+            f"./TabCSDI/data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}.pk"
         )
-        processed_data_path_norm = f"./data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
+        processed_data_path_norm = f"./TabCSDI/data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
 
         # self.cont_cols is only saved in .pk file before normalization.
         cat_list = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
@@ -180,7 +180,7 @@ def get_dataloader(seed=1, nfold=5, batch_size=16, missing_ratio=0.1):
 
     # Here we perform max-min normalization.
     processed_data_path_norm = (
-        f"./data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
+        f"./TabCSDI/data_online_ed_2/missing_ratio-{missing_ratio}_seed-{seed}_max-min_norm.pk"
     )
     if not os.path.isfile(processed_data_path_norm):
         print(
@@ -197,7 +197,7 @@ def get_dataloader(seed=1, nfold=5, batch_size=16, missing_ratio=0.1):
             temp = dataset.observed_values[train_index, k]
             max_arr[index] = max(temp[obs_ind])
             min_arr[index] = min(temp[obs_ind])
-        np.save("./data_online_ed_2/normalization_params.npy", [max_arr, min_arr])
+        np.save("./TabCSDI/data_online_ed_2/normalization_params.npy", [max_arr, min_arr])
         print(
             f"--------------Max-value for cont-variable column {max_arr}--------------"
         )
